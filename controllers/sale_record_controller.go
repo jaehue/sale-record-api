@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"errors"
 	"net/http"
 	"strconv"
 	"time"
@@ -84,7 +83,7 @@ func (SaleRecordController) EventRepublish(c echo.Context) error {
 	}
 	saleRecord, err := models.GetSaleRecordByTransactionId(c.Request().Context(), transactionId)
 	if err != nil {
-		return ReturnApiFail(c, http.StatusInternalServerError, ApiErrorDB, err)
+		return ReturnApiFail(c, api.ErrorDB.New(err))
 	}
 	go models.EventPublish{}.PublishSaleRecordEvent(c.Request().Context(), saleRecord)
 	return c.JSON(http.StatusOK, api.Result{
@@ -173,16 +172,16 @@ func (SaleRecordController) GetSaleRecords(c echo.Context) error {
 func (SaleRecordController) Create(c echo.Context) error {
 	var saleRecordInput SaleRecordInput
 	if err := c.Bind(&saleRecordInput); err != nil {
-		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
+		return ReturnApiFail(c, api.ErrorParameter.New(err))
 	}
 	if err := c.Validate(saleRecordInput); err != nil {
-		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
+		return ReturnApiFail(c, api.ErrorParameter.New(err))
 	}
 	if saleRecordInput.OrderId == 0 && saleRecordInput.RefundId == 0 {
-		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, errors.New("orderId and refundId can't both 0"))
+		return ReturnApiFail(c, factory.NewError(api.ErrorMissParameter, "orderId and refundId can't both 0"))
 	}
 	if saleRecordInput.ChannelType == "POS" && saleRecordInput.SalesmanId == 0 {
-		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, errors.New("salesmanId can't  0"))
+		return ReturnApiFail(c, factory.NewError(api.ErrorMissParameter, "salesmanId can't  0"))
 	}
 	saleRecord := saleRecordInput.MakeSaleRecord()
 	ctx := c.Request().Context()

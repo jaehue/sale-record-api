@@ -3,10 +3,11 @@ package controllers
 import (
 	"context"
 	"errors"
-	"github.com/hublabs/sale-record-api/models"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/hublabs/sale-record-api/models"
 
 	"github.com/pangpanglabs/goutils/number"
 )

@@ -3,8 +3,9 @@ package models
 import (
 	"context"
 	"encoding/json"
-	"github.com/hublabs/sale-record-api/factory"
 	"time"
+
+	"github.com/hublabs/sale-record-api/factory"
 
 	"github.com/go-xorm/xorm"
 )

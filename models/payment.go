@@ -6,8 +6,9 @@ import (
 	"fmt"
 	"math"
 	"net/http"
-	"github.com/hublabs/sale-record-api/config"
 	"time"
+
+	"github.com/hublabs/sale-record-api/config"
 
 	"github.com/pangpanglabs/goutils/behaviorlog"
 	"github.com/pangpanglabs/goutils/httpreq"
