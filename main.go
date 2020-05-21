@@ -16,6 +16,7 @@ import (
 	"github.com/hublabs/sale-record-api/controllers"
 	"github.com/hublabs/sale-record-api/models"
 
+	"github.com/go-playground/validator"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
 	"github.com/labstack/echo"
@@ -24,7 +25,6 @@ import (
 	"github.com/pangpanglabs/goutils/behaviorlog"
 	"github.com/pangpanglabs/goutils/echomiddleware"
 	"github.com/sirupsen/logrus"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 func main() {
