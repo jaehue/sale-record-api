@@ -155,6 +155,9 @@ func (input SaleRecordInput) MakeSaleRecord() models.AssortedSaleRecord {
 	if input.ChannelType == "EMALL" {
 		saleRecord.CreatedBy = "excel-upload"
 		saleRecord.ModifiedBy = "excel-upload"
+	} else if input.ChannelType == "TMALL" {
+		saleRecord.CreatedBy = "sale-record-tmall"
+		saleRecord.ModifiedBy = "sale-record-tmall"
 	} else {
 		saleRecord.CreatedBy = strconv.FormatInt(input.CreatedId, 10)
 		saleRecord.ModifiedBy = saleRecord.CreatedBy
